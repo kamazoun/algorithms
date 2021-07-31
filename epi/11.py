@@ -1,3 +1,9 @@
+# Three methods are presented here:
+## The `obvious` one: We check that each tree root is larger than or equal to the max of its left subtree and smaller than or equal to the min of its right subtree
+## The `author's` one: We pass down and tighten constraints down the tree. At the beginning each node can have values between -inf and inf.
+## The `clever` one: an in-order traversal of a bst should lay an ordered array: Can be implemented with DFS or BFS
+
+
 R'''
 Write a program that takes as input a binary tree and checks if the tree satisfies the BST property.
 '''
@@ -60,3 +66,20 @@ def is_bst(tree):
         q.append(n.rigth, n.data, r)
 
     return True
+
+
+
+def is_bst(tree, arr = []):
+        R'''
+        O(n) time and space.
+        An in-order traversal should lead to an ascending sorted array. DFS
+        '''
+    if tree.left:
+        x = is_bst(tree.left)
+        if not x: return False
+    if not (tree.data >= arr[-1]):
+        return False
+    arr.append(tree.data)
+    if tree.rigth:
+        x = is_bst(tree.right)
+        if not x: return False
