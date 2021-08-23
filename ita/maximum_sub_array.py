@@ -1,11 +1,5 @@
 R'''
-Suppose that you been offered the opportunity to invest in the Volatile Chemical
-Corporation. Like the chemicals the company produces, the stock price of the
-Volatile Chemical Corporation is rather volatile. You are allowed to buy one unit
-of stock only one time and then sell it at a later date, buying and selling after the
-close of trading for the day. To compensate for this restriction, you are allowed to
-learn what the price of the stock will be in the future. Your goal is to maximize
-your profit.
+Suppose that you been offered the opportunity to invest in the Volatile Chemical Corporation. Like the chemicals the company produces, the stock price of the Volatile Chemical Corporation is rather volatile. You are allowed to buy one unit of stock only one time and then sell it at a later date, buying and selling after the close of trading for the day. To compensate for this restriction, you are allowed to learn what the price of the stock will be in the future. Your goal is to maximize your profit.
 '''
 
 
@@ -114,7 +108,7 @@ def max_sub_array_linear(arr, low, high):
     return (l, h, d[-1])
 
 
-#def find_max_sub_array(): From epi gives another beautiful solution
+#def find_max_sub_array(): From epi 13.py gives another beautiful solution
 
 
 arr = [100, 50, 25, 85, -3560, -3, 105, 102, 86, -63, 81, -2050, 101, 94, -50, 106, 101, -508, 79, 94, 90, 97]

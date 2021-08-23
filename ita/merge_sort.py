@@ -1,10 +1,10 @@
 
 
-def merge(arr, start, middle, end):
+def merge(arr, start : int, middle : int, end : int):
     R'''
     The array contains two sorted arrays [start to middle] and [middle + 1 to end]
     Sorts the elements of the array from start to end.
-    start and end refer to index in the array not the indexes 0 and len(arr)-1
+    start and end refer to indexes in the array not the indexes 0 and len(arr)-1
     '''
 
     l1 = middle - start + 1
@@ -35,7 +35,7 @@ def merge(arr, start, middle, end):
 
 def merge_sort(arr, start, end):
     if start < end:
-        middle = (start + end) // 2
+        middle = start + (end - start) // 2
         merge_sort(arr, start, middle)
         merge_sort(arr, middle+1, end)
         merge(arr, start, middle, end)
