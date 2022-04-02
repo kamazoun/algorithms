@@ -1,0 +1,31 @@
+from sys import stdin
+
+if __name__ == '__main__':
+    t = int(stdin.readline())
+
+    for case in range(t):
+        n = int(stdin.readline())
+        s = stdin.readline().split()
+        
+        # # Sorting in O(n)
+        # INF = float('inf')
+        # number = len(s)
+        # maxi = -INF
+        # mini = INF
+        # c = [] * number
+        # for i in range(number):
+        #     e = int(s[i])
+        #     mini = min(mini, e)
+        #     maxi = max(maxi, e)
+        #     c[i] = e
+        # b = [0] * (maxi - mini + 1)
+        # for i in range(number):
+        #     b[i] = c[i] - mini
+        
+        k = sorted(s, key=lambda i: int(i))
+        result = 1
+        for i in k:
+            if int(i) >= result:
+                result += 1
+            
+        print(f'Case #{case + 1}: {result - 1}')
