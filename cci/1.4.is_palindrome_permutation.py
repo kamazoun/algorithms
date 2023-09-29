@@ -39,6 +39,13 @@ def is_palindrome_permutation(s):
 
     For the bit count, by just substracting 1 from bit_vector, we actually shift its position left (0110 - 1 => 0101). If we were to increment count after that and then substract one again and increment count and so on, count will just end up being the value of bit vector (in previous example, count would be incremented until 6, yet it clearly should be 2).
     To count the 1-s we need to delete them before incrementing count: by substracting then AND-ing (&), we achieve just that. (0110 - 1 => (0101) & (0110) => (0100) and count == 1).
+
+    After re-reading, the previous section might be confusing, so to rephrase:
+    * When we delete one from an int, its lowest (close to LSB) bit that is a 1 will be set to 0, and every bit after it until the LSB (that were all 0s) will be set to 1.
+      For instance 12 can be represented as `1100` by substracting 1 we have 11 which is `1011`
+    * Then, when we do a AND (&) operation of the original bits `1100` and the one from which one was substracted `1011` we actually erase the lowest bit set to 1
+      So 1100 & 1011 => 1000
+    To sum up bits_vector & (bits_vector - 1) => the lowest bit with value 1 is set to 0
     '''
     bit_vector = 0
 
