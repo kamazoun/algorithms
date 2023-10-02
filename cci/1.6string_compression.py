@@ -35,6 +35,31 @@ def string_compression(s):
         print(s)
 
 
+
+def compression(s: str) -> str:
+    R"""
+    :param s:
+    :return:
+    """
+    c = s[0]
+    count = 0
+    d = {}
+    order = 0
+    for i in s:
+        if i == c:
+            count += 1
+        else:
+            d[order] = (c, count)
+            order += 1
+            count = 1
+            c = i
+    sl = []  # Avoid concatenating strings
+    for i in d.keys():
+        sl.insert(i, f'$')
+
+    r = ''.join(sl)
+
+
     
 #print(url_ify_in_place(['1', ' ', '\t', '2', '', '', '', '', '', ''], 4))
 print(string_compression('aabcccccaaa'))
