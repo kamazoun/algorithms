@@ -1,1 +1,3 @@
 1.5: It would be easy to misunderstand the question and solve for `at most one difference in the letters of the words`. But the real problem requires to have `at most one 'edit' difference between the words`.
+
+1.6: In multiple implementations the algorithm does not add the last character: for instance `aabcccccaaa` would be compressed to `a2b1c5` instead of `a2b1c5a3`. In one of the implementations the error occurred because at the end of the for loop, the last character and its count were not added to the dict.
