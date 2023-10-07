@@ -38,6 +38,15 @@ def rotate_matrix(m):
     #return m in place
 
 
+def rotate(m):
+    columns = len(m[0])
+    for row in range(len(m)):
+        for column in range(row):
+            t = m[row][column]
+            m[row][column] = m[column][columns - row]
+            m[column][columns - row] = t
+
+
 m = [[1, 2,3], [4, 5, 6], [7, 8, 9]]
 rotate_matrix_auth(m)
 print(m)
