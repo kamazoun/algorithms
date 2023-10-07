@@ -3,6 +3,8 @@ Given an image represented by an NxN matrix, where each pixel in the image is 4
 bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
 '''
 
+from typing import List
+
 def rotate_matrix_auth(m):
     R'''
     This is the author solution: it involves actually 'rotating' the rows and columns 'layer by layer'. After implementing my method below and seeing this, it seems naive.
@@ -38,8 +40,8 @@ def rotate_matrix(m):
     #return m in place
 
 
-def rotate(m):
-    columns = len(m[0])
+def rotate(m: List) -> None:
+    columns = len(m[0]) - 1
     for row in range(len(m)):
         for column in range(row):
             t = m[row][column]
@@ -47,6 +49,10 @@ def rotate(m):
             m[column][columns - row] = t
 
 
-m = [[1, 2,3], [4, 5, 6], [7, 8, 9]]
-rotate_matrix_auth(m)
-print(m)
+def grid_print(m):
+    for row in m:
+        print(row)
+
+m = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+rotate(m)
+grid_print(m)
