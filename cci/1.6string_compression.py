@@ -16,7 +16,7 @@ def string_compression(s):
     gains = 0  # The number of chars we get by compressing s
     i, order = 0, 0
 
-    while i < len(s):
+    while i < len(s): # TO DO: Fix error in last char
         j = i + 1
         while j < len(s) and s[j] == s[i]:
             j += 1
