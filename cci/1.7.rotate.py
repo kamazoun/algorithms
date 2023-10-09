@@ -37,22 +37,31 @@ def rotate_matrix(m):
     for i in range(n//2):
         m[i], m[n-i-1] = m[n-i-1], m[i]
 
-    #return m in place
+    # return m in place
 
 
 def rotate(m: List) -> None:
-    columns = len(m[0]) - 1
-    for row in range(len(m)):
-        for column in range(row):
-            t = m[row][column]
-            m[row][column] = m[column][columns - row]
-            m[column][columns - row] = t
+    a = len(m) - 1
+    for depth in range(len(m) // 2):
+        r = len(m[depth]) - depth - 1 # because r is used in the matrix subscript and thus without a -1 an IndexOutofBound would be thrown.
+        for i in range(depth, r + 1): # Because range is exclusive at the end, so will end at r.
+            print(f'Case {i}')
+            t = m[depth][i]
+            m[depth][i] = m[a - i][depth]
+            m[a - i][depth] = m[a - depth][a - i]
+            m[a - depth][a - i] = m[i][r]
+            m[i][r] = t
+            grid_print(m)
+
+
 
 
 def grid_print(m):
     for row in m:
         print(row)
+    print('\n\n')
 
-m = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+m = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+grid_print(m)
 rotate(m)
 grid_print(m)
