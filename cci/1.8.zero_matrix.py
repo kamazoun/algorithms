@@ -3,6 +3,8 @@ Write an algorithm such that if an element in an MxN matrix is 0, its entire row
 column are set to 0.
 '''
 
+from typing import List
+
 def zero_matrix(a, m, n):
     R'''
     My first `reasonnable` approach. Although I feel it is not good.
@@ -83,6 +85,31 @@ def zero_matrix_auth(a, m, n):
         a[0][0] = 0
 
     return a
+
+
+def matrix_zero(a: List):
+    def zero_row(r):
+        pass
+
+    def zero_column(c):
+        pass
+
+    rows_to_zero = []
+    columns_to_zero = []
+    m = len(a)
+    for i in range(m):
+        n = len(m[i])
+        for j in range(n):
+            if a[i][j] == 0:
+                rows_to_zero.append(i)
+                columns_to_zero.append(j)
+
+    for r in rows_to_zero:
+        zero_row(r)
+
+    for c in columns_to_zero:
+        zero_column(c)
+
 
 a = [[1, 2, 0], [6, 5, 4], [7, 0, 9]]
 a = zero_matrix_auth(a, len(a), len(a[0]))
