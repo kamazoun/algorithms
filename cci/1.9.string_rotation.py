@@ -6,4 +6,8 @@ call to isSubstring (e.g.,"waterbottle" is a rotation of"erbottlewat")
 
 
 def is_rotation(s1: str, s2: str) -> bool:
+    def is_substring(full_string: str, substring: str) -> bool:
+        if len(substring) < len(full_string):  # Not necessary
+            return False
+        return substring in full_string
     pass
