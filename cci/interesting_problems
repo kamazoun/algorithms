@@ -7,6 +7,6 @@ To put it simply, the common implementation error was not being able to `compres
 
 1.7: Can be very confusing for the in-place solution: You need to define well the subscript of the matrix.
 
-
+1.9: One solution is quite brilliant and simple but hard to spot.
 
 END CCI SECTION ----------------------------------------------------------------
