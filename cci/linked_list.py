@@ -9,6 +9,12 @@ class Node1:
         self.next = next
 
 
+R"""
+Here we are going to test some errors with single Node class without a LinkedList wrapper class.
+The most common ones ought to be:
+1. a single head node is accessed by multiple objects and is changed (ex. deleted) by one leaving the others with a dangling pointer
+"""
+
 class LinkedListWithNode:
     def __init__(self, node: Node1):
         self.head = node
