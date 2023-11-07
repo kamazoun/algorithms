@@ -1,0 +1,9 @@
+In this directory I intend to keep c files.
+
+To compile and run with GCC in Ubuntu:
+
+`gcc -o ANYNAME FILENAME.c`
+
+then
+
+`./ANYNAME`
