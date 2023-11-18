@@ -4,10 +4,36 @@ FOLLOW UP
 How would you solve this problem if a temporary buffer is not allowed?
 """
 
+# To account for most cases, we will solve for:
+# 1. When the LL is Singly Linked: We have to receive the head.
+# 2. When it is Doubly Linked (to make it interesting we will not receive the head but any node).
+class NodeSinglyLinked:
+    def __init__(self, data: str):
+        self.data = data
+        self.next = None
+
+class NodeDoublyLinked:
+    def __init__(self, data: str):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+def with_buffer_singly_linked(head: NodeSinglyLinked):
+    n = head
+    l = [n.data]
+    while n and n.next:
+        if n.next.data in l:
+            n.next = n.next.next
+        else:
+            l.append(n.next.data)
+        n = n.next
+    return head
+
+
 def remove_dups_with_buffer(head_node):
     R"""
     Implementing this in python might not be as intuitive as it would in c/c++.
-    We assume the nodes are references. Also we used a dict instead of a hash_table.
+    We assume the nodes are references. Also, we used a dict instead of a hash_table.
     """
     n = head_node
 
