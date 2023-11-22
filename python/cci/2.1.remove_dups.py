@@ -37,17 +37,17 @@ def remove_dups_with_buffer(head_node):
     """
     n = head_node
 
-    dict = {}
-    d[head_node.data] = True
+    d = {head_node.data: True}
 
     while n.next: # != None:
-        if n.next.data in dict.keys():
+        if n.next.data in d.keys():
             n.next = n.next.next
-        else
+        else:
             d[n.next.data] = True
         n = n.next
 
     return head_node # if head is duplicated, it is indeed its duplicate that will be deleted, we won't modify head
+
 
 def remove_dups(head_node):
 
