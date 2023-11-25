@@ -16,7 +16,7 @@ class NodeSinglyLinked:
 
 
 class NodeDoublyLinked:
-    def __init__(self, data: str):
+    def __init__(self, data: int):
         self.data = data
         self.next = None
         self.prev = None
@@ -99,3 +99,12 @@ def print_ll(head):
         head = head.next  # head is not subsequently used
 
 
+a = [1, 2, 3, 4, 1, 4, 6, 7]
+node = head = NodeSinglyLinked(0)
+for i in a:
+    n = NodeSinglyLinked(i)
+    node.next = n
+    node = n
+
+head = with_buffer_singly_linked(head)
+print_ll(head)
