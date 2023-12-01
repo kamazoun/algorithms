@@ -27,10 +27,11 @@ def with_buffer_singly_linked(head: NodeSinglyLinked):
     s = n.next
     l = [n.data]
     while n and s:
-        if s.data in l:
+        while s.data in l:
             s = s.next
         else:
             l.append(s.data)
+            n.next = s
             n = s
             s = n.next
     return head
