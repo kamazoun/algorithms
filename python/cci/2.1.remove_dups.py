@@ -10,7 +10,7 @@ How would you solve this problem if a temporary buffer is not allowed?
 # 2. When it is Doubly Linked (to make it interesting we will not expect to necessarily receive the head but any node).
 # 3. When it is doubly linked and circular
 class NodeSinglyLinked:
-    def __init__(self, data: str):
+    def __init__(self, data: int):
         self.data = data
         self.next = None
 
@@ -23,6 +23,14 @@ class NodeDoublyLinked:
 
 
 def with_buffer_singly_linked(head: NodeSinglyLinked):
+    R"""
+    :param head: The head node of the Linked list
+    :return: returns the same head because there is no way the head would change
+
+    :idea: We use a running pointer to find if a node's data is already in the list, otherwise we add it to the list.
+    If a node is duplicated, we point the slow pointer to the first pointer after the fast pointer that is not
+    duplicated (its data is not in the list). To accomplish this, we use the while...else construct.
+    """
     n = head
     s = n.next
     l = [n.data]
@@ -37,7 +45,7 @@ def with_buffer_singly_linked(head: NodeSinglyLinked):
     return head
 
 
-def with_buffer_doubly_linked(n: NodeDoublyLinked):
+def with_buffer_doubly_linked_simple(n: NodeDoublyLinked):
     while n.prev:
         n = n.prev
 
@@ -45,14 +53,54 @@ def with_buffer_doubly_linked(n: NodeDoublyLinked):
     s = n.next
     l = [n.data]
     while n and s:
-        if s.data in l:
-            n.next = s.next
+        while s.data in l:
+            s = s.next
         else:
             l.append(s.data)
-        n = s
-        s = n.next
-
+            n.next = s
+            n = s
+            s = n.next
     return head
+
+
+def with_buffer_doubly_linked(n: NodeDoublyLinked):
+    R"""
+    :param n: Any node, does not need to be the head.
+    :return: The head. Can be different from the received node
+
+    :idea: Here there are different ways to go about it. If there is no particular restriction on how to select the
+    duplicated nodes that are to be removed, we do not need to first `reverse` to find the head. We can simply save
+    the node n, and from there go forward and go backward to eliminate the duplicates. How would it be done?
+    * The value of n is duplicated in the LL:
+     ** The node before and after n hold the same value as n: By intuition, it feels better to first go backward (
+     although in the doubly LL, backward and forward are relative) from n (the nodes before n that hold the same
+     value as n will point to n.next). Then we will keep a variable pointing to the first not deleted node before n,
+     so that if n is deleted, that node will point to the first not deleted node after n. We might also want to save
+     the head node when found.
+
+    * The value of n is not duplicated in the LL: We follow a process similar to what is described above,
+    but as we do not know beforehand if n is duplicated, we use the same algorithm to find out.
+    """
+    fbn = n.prev # first_before_n. I should not need to keep that because it should be accessible via n.prev
+    current = n
+    l = [n.data]
+    while current.prev:
+        if current.prev.data not in l:
+            current.prev.next = current
+            l.append(current.prev.data)
+        else:
+            while current.prev.data in l:
+                current = current.prev
+    head = current
+    current = n.prev
+    while current.next:
+        if current.next.data in l:
+            current.next = current.next.next
+        else:
+            l.append(current.next.data)
+        current = current.next
+    return head
+    
 
 
 def with_buffer_circular(node: NodeDoublyLinked):
