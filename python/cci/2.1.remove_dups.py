@@ -89,11 +89,11 @@ def with_buffer_doubly_linked(n: NodeDoublyLinked):
             current.prev.next = current
             l.append(current.prev.data)
         else:
-            while current.prev.data in l:
+            while current.prev and current.prev.data in l:
                 current = current.prev
     head = current
-    current = n.prev
-    while current.next:
+    current = fbn # n.prev
+    while current and current.next:
         if current.next.data in l:
             current.next = current.next.next
         else:
@@ -156,4 +156,15 @@ for i in a:
     node = n
 
 head = with_buffer_singly_linked(head)
+#print_ll(head)
+
+
+node = head = NodeDoublyLinked(0)
+for i in a:
+    n = NodeDoublyLinked(i)
+    n.prev = node
+    node.next = n
+    node = n
+
+head = with_buffer_doubly_linked(node)
 print_ll(head)
