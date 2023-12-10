@@ -104,6 +104,11 @@ def with_buffer_doubly_linked(n: NodeDoublyLinked):
 
 
 def with_buffer_circular(node: NodeDoublyLinked):
+    R"""
+    The trick here will be to know when a cycle is completed
+    :param node: Any node of the LL
+    :return: Any node
+    """
     pass
 
 
@@ -148,6 +153,14 @@ def print_ll(head):
         head = head.next  # head is not subsequently used
 
 
+def print_multill(head1, head2, head3):
+    while head1 and head2 and head3:
+        print(f'{head1.data} \t {head2.data} \t {head3.data}')
+        head1 = head1.next  # head is not subsequently used
+        head2 = head2.next
+        head3 = head3.next
+
+
 a = [1, 2, 3, 4, 1, 4, 6, 7]
 node = head = NodeSinglyLinked(0)
 for i in a:
@@ -166,5 +179,7 @@ for i in a:
     node.next = n
     node = n
 
-head = with_buffer_doubly_linked(node)
-print_ll(head)
+head1 = with_buffer_doubly_linked(node)
+head2 = with_buffer_doubly_linked(node.prev.prev)
+head3 = with_buffer_doubly_linked(head)
+print_multill(head1, head2, head3)
