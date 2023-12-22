@@ -82,25 +82,50 @@ def with_buffer_doubly_linked(n: NodeDoublyLinked):
     but as we do not know beforehand if n is duplicated, we use the same algorithm to find out.
     """
     fbn = n.prev # first_before_n. I should not need to keep that because it should be accessible via n.prev
-    current = n
+    current = n.prev
     l = [n.data]
-    while current.prev:
-        if current.prev.data not in l:
-            current.prev.next = current
-            l.append(current.prev.data)
+    head = None
+
+    while current:
+        if current.data in l:
+            t = current.prev
+            while t.data in l:
+                t = t.prev
+            current.prev = t
         else:
-            while current.prev and current.prev.data in l:
-                current = current.prev
-    head = current
-    current = fbn # n.prev
-    while current and current.next:
-        if current.next.data in l:
-            current.next = current.next.next
+            l.append(current.data)
+        head = current
+        current = current.prev
+    current = n
+    while current:
+        if current.data in l:
+            t = current.next
+            while t and t.data in l:
+                t = t.next
+            current.next = t
         else:
-            l.append(current.next.data)
+            l.append(current.data)
         current = current.next
+
     return head
-    
+
+    # while current.prev:
+    #     if current.prev.data not in l:
+    #         current.prev.next = current
+    #         l.append(current.prev.data)
+    #     else:
+    #         while current.prev and current.prev.data in l:
+    #             current = current.prev
+    # head = current
+    # current = n.prev
+    # while current and current.next:
+    #     if current.next.data in l:
+    #         current.next = current.next.next
+    #     else:
+    #         l.append(current.next.data)
+    #     current = current.next
+    # return head
+    #
 
 
 def with_buffer_circular(node: NodeDoublyLinked):
@@ -162,14 +187,14 @@ def print_multill(head1, head2, head3):
 
 
 a = [1, 2, 3, 4, 1, 4, 6, 7]
-node = head = NodeSinglyLinked(0)
-for i in a:
-    n = NodeSinglyLinked(i)
-    node.next = n
-    node = n
-
-head = with_buffer_singly_linked(head)
-#print_ll(head)
+# node = head = NodeSinglyLinked(0)
+# for i in a:
+#     n = NodeSinglyLinked(i)
+#     node.next = n
+#     node = n
+#
+# head = with_buffer_singly_linked(head)
+# #print_ll(head)
 
 
 node = head = NodeDoublyLinked(0)
@@ -178,8 +203,43 @@ for i in a:
     n.prev = node
     node.next = n
     node = n
+#
+# head1 = with_buffer_doubly_linked(node)
+# head2 = with_buffer_doubly_linked(node.prev.prev)
+# head3 = with_buffer_doubly_linked(head)
+# print_multill(head1, head2, head3)
 
-head1 = with_buffer_doubly_linked(node)
-head2 = with_buffer_doubly_linked(node.prev.prev)
-head3 = with_buffer_doubly_linked(head)
-print_multill(head1, head2, head3)
+
+def remove_duplicates(node: NodeDoublyLinked):
+    seen = set([node.data])
+    # Remove duplicates after the node
+    current = node.next
+    while current:
+        if current.data in seen:
+            # Remove the node
+            if current.next:
+                current.next.prev = current.prev
+            current.prev.next = current.next
+        else:
+            seen.add(current.data)
+        current = current.next
+
+    # Remove duplicates before the node
+    head = None
+    current = node.prev
+    while current:
+        if current.data in seen:
+            # Remove the node
+            if current.prev:
+                current.prev.next = current.next
+            current.next.prev = current.prev
+        else:
+            seen.add(current.data)
+        current = current.prev
+        if current: head = current
+    return head
+
+# head1 = remove_duplicates(node)
+# head2 = remove_duplicates(node.prev.prev)
+# head3 = remove_duplicates(head)
+# print_multill(head1, head2, head3)
