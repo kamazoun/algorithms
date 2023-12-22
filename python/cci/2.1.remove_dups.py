@@ -203,8 +203,43 @@ for i in a:
     n.prev = node
     node.next = n
     node = n
+#
+# head1 = with_buffer_doubly_linked(node)
+# head2 = with_buffer_doubly_linked(node.prev.prev)
+# head3 = with_buffer_doubly_linked(head)
+# print_multill(head1, head2, head3)
 
-head1 = with_buffer_doubly_linked(node)
-head2 = with_buffer_doubly_linked(node.prev.prev)
-head3 = with_buffer_doubly_linked(head)
-print_multill(head1, head2, head3)
+
+def remove_duplicates(node: NodeDoublyLinked):
+    seen = set([node.data])
+    # Remove duplicates after the node
+    current = node.next
+    while current:
+        if current.data in seen:
+            # Remove the node
+            if current.next:
+                current.next.prev = current.prev
+            current.prev.next = current.next
+        else:
+            seen.add(current.data)
+        current = current.next
+
+    # Remove duplicates before the node
+    head = None
+    current = node.prev
+    while current:
+        if current.data in seen:
+            # Remove the node
+            if current.prev:
+                current.prev.next = current.next
+            current.next.prev = current.prev
+        else:
+            seen.add(current.data)
+        current = current.prev
+        if current: head = current
+    return head
+
+# head1 = remove_duplicates(node)
+# head2 = remove_duplicates(node.prev.prev)
+# head3 = remove_duplicates(head)
+# print_multill(head1, head2, head3)
