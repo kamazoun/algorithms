@@ -211,7 +211,7 @@ for i in a:
 
 
 def remove_duplicates(node: NodeDoublyLinked):
-    seen = set([node.data])
+    seen = {node.data}
     # Remove duplicates after the node
     current = node.next
     while current:
