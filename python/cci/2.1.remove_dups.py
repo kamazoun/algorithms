@@ -8,6 +8,7 @@ How would you solve this problem if a temporary buffer is not allowed?
 # TODO: simple idea: why not implement the remove function in each class: for instance NodeSinglyLinked could have a remove method that removes the duplicated node and NodeDoublyLinked could also have a remove method. They could all even have multiple methods for `with buffer` and `without buffer`.
 # The issue is that right now, NodeSinglyLinked and NodeDoublyLinked represent nodes, so we would need to either adapt them or create entirely new classes to represent the linked lists.
 
+
 # To account for most cases, we will solve for:
 # 1. When the LL is Singly Linked: We have to receive the head.
 # 2. When it is Doubly Linked (to make it interesting we will not expect to necessarily receive the head but any node).
