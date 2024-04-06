@@ -5,6 +5,20 @@ How would you solve this problem if a temporary buffer is not allowed?
 """
 
 
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def add_node(self, data):
+        pass
+
+    def remove_dups_simple(self):
+        pass
+
+    def remove_dups_efficient(self):
+        pass
+
 # TODO: simple idea: why not implement the remove function in each class: for instance NodeSinglyLinked could have a remove method that removes the duplicated node and NodeDoublyLinked could also have a remove method. They could all even have multiple methods for `with buffer` and `without buffer`.
 # The issue is that right now, NodeSinglyLinked and NodeDoublyLinked represent nodes, so we would need to either adapt them or create entirely new classes to represent the linked lists.
 
