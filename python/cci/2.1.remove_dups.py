@@ -5,13 +5,25 @@ How would you solve this problem if a temporary buffer is not allowed?
 """
 
 
+class NodeSinglyLinked:
+    def __init__(self, data: int):
+        self.data = data
+        self.next = None
+
 
 class SinglyLinkedList:
     def __init__(self):
         self.head = None
 
-    def add_node(self, data):
-        pass
+    def add_node(self, data: int):
+        node = NodeSinglyLinked(data)
+        if self.head is None:
+            self.head = node
+        else:
+            current = head
+            while current.next:
+                current = current.next
+            current.next = node
 
     def remove_dups_simple(self):
         pass
@@ -27,11 +39,6 @@ class SinglyLinkedList:
 # 1. When the LL is Singly Linked: We have to receive the head.
 # 2. When it is Doubly Linked (to make it interesting we will not expect to necessarily receive the head but any node).
 # 3. When it is doubly linked and circular
-class NodeSinglyLinked:
-    def __init__(self, data: int):
-        self.data = data
-        self.next = None
-
 
 class NodeDoublyLinked:
     def __init__(self, data: int):
