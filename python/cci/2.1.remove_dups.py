@@ -26,9 +26,34 @@ class SinglyLinkedList:
             current.next = node
 
     def remove_dups_simple(self):
-        pass
+        R"""
+        :param head: The head node of the Linked list
+        :return: returns the same head because there is no way the head would change
+
+        :idea: We use a running pointer to find if a node's data is already in the list, otherwise we add it to the list.
+        If a node is duplicated, we point the slow pointer to the first pointer after the fast pointer that is not
+        duplicated (its data is not in the list). To accomplish this, we use the while...else construct.
+        """
+        n = self.head
+        s = n.next
+        l = [n.data]
+        while n and s:
+            while s.data in l:
+                s = s.next
+            else:
+                l.append(s.data)
+                n.next = s
+                n = s
+                s = n.next
+        return self.head
+
 
     def remove_dups_efficient(self):
+        pass
+    def remove_dups_efficient_circular(self):
+        """
+        Note: here there won't be no head.
+        """
         pass
 
 # TODO: simple idea: why not implement the remove function in each class: for instance NodeSinglyLinked could have a remove method that removes the duplicated node and NodeDoublyLinked could also have a remove method. They could all even have multiple methods for `with buffer` and `without buffer`.
