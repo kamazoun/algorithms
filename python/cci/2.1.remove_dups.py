@@ -20,7 +20,7 @@ class SinglyLinkedList:
         if self.head is None:
             self.head = node
         else:
-            current = head
+            current = self.head
             while current.next:
                 current = current.next
             current.next = node
@@ -55,6 +55,23 @@ class SinglyLinkedList:
         Note: here there won't be no head.
         """
         pass
+
+    def __repr__(self):
+        result = []
+        head = self.head
+        while head:
+            result.append(str(head.data))
+            head = head.next
+
+        return '->'.join(result)
+
+sll = SinglyLinkedList()
+for i in [1,2, 2, 3]:
+    sll.add_node(i)
+print(sll)
+sll.remove_dups_simple()
+print(sll)
+
 
 # TODO: simple idea: why not implement the remove function in each class: for instance NodeSinglyLinked could have a remove method that removes the duplicated node and NodeDoublyLinked could also have a remove method. They could all even have multiple methods for `with buffer` and `without buffer`.
 # The issue is that right now, NodeSinglyLinked and NodeDoublyLinked represent nodes, so we would need to either adapt them or create entirely new classes to represent the linked lists.
