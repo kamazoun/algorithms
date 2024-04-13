@@ -66,7 +66,7 @@ class SinglyLinkedList:
         return '->'.join(result)
 
 sll = SinglyLinkedList()
-for i in [1,2, 2, 3]:
+for i in [1, 2, 2, 3, 2, 1]:  # TODO: There is an interesting error here: if I use this list: [1, 2, 2, 3, 2, 1], it does not work, but it does for this [1, 2, 2, 3]
     sll.add_node(i)
 print(sll)
 sll.remove_dups_simple()
