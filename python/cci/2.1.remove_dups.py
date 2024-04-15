@@ -26,26 +26,17 @@ class SinglyLinkedList:
             current.next = node
 
     def remove_dups_simple(self):
-        R"""
-        :param head: The head node of the Linked list
-        :return: returns the same head because there is no way the head would change
-
-        :idea: We use a running pointer to find if a node's data is already in the list, otherwise we add it to the list.
-        If a node is duplicated, we point the slow pointer to the first pointer after the fast pointer that is not
-        duplicated (its data is not in the list). To accomplish this, we use the while...else construct.
-        """
-        n = self.head
-        s = n.next
-        l = [n.data]
-        while n and s:
-            while s.data in l:
-                s = s.next
+        current = self.head
+        prev = None
+        seen = []
+        while current:
+            if current.data in seen:
+                current = current.next
+                prev.next = current # prev will never be None here as at first step, seen will be empty
             else:
-                l.append(s.data)
-                n.next = s
-                n = s
-                s = n.next
-        return self.head
+                seen.append(current.data)
+                prev = current
+                current = current.next
 
 
     def remove_dups_efficient(self):
@@ -66,7 +57,7 @@ class SinglyLinkedList:
         return '->'.join(result)
 
 sll = SinglyLinkedList()
-for i in [1, 2, 2, 3, 2, 1]:  # TODO: There is an interesting error here: if I use this list: [1, 2, 2, 3, 2, 1], it does not work, but it does for this [1, 2, 2, 3]
+for i in [1, 2, 2, 3, 2, 1, 4, 1]:
     sll.add_node(i)
 print(sll)
 sll.remove_dups_simple()
