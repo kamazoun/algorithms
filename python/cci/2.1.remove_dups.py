@@ -32,7 +32,7 @@ class SinglyLinkedList:
         while current:
             if current.data in seen:
                 current = current.next
-                prev.next = current # prev will never be None here as at first step, seen will be empty
+                prev.next = current  # prev will never be None here as at first step, seen will be empty
             else:
                 seen.append(current.data)
                 prev = current
@@ -40,7 +40,27 @@ class SinglyLinkedList:
 
 
     def remove_dups_efficient(self):
-        pass
+        R"""
+        The efficiency here refers to space. Time will increase to O(n^2).
+        The solution will make use of a running pointer. There are 2 ways to move the running pointer:
+        1. Make a second pointer `prev` or `first` that will, at each move of the `current` pointer, go from the `head` to the `current` pointer. The major issue with that solution would be finding the current pointer to stop the iteration of `prev` as we only use `int` to recognize nodes. Of course, if well implemented, no other value equal to `current.data` would be found twice on the path of `prev` until it reaches `current`.
+        2. Make a second pointer `next` or `last` that will, at each move of `current`, go from the node after current until the end of the LL. The issue here is that we would need to keep track of a `prev` node that we would use to jump `current` if its data is not unique.
+        """
+        prev = None
+        first = self.head
+        current = self.head
+        while current:
+            while first and first.data != current.data:
+                first = first.next
+                if first.data == current.data:
+                    prev.next = current.next
+                    break
+            prev = current
+            current = current.next
+            # TODO: The issue here, is that I cannot know if the `first` that is equal to `current` is in fact current, a duplicate or something else, as the nodes do not have IDs.
+
+
+
     def remove_dups_efficient_circular(self):
         """
         Note: here there won't be no head.
