@@ -26,30 +26,41 @@ class SinglyLinkedList:
             current.next = node
 
     def remove_dups_simple(self):
-        R"""
-        :param head: The head node of the Linked list
-        :return: returns the same head because there is no way the head would change
-
-        :idea: We use a running pointer to find if a node's data is already in the list, otherwise we add it to the list.
-        If a node is duplicated, we point the slow pointer to the first pointer after the fast pointer that is not
-        duplicated (its data is not in the list). To accomplish this, we use the while...else construct.
-        """
-        n = self.head
-        s = n.next
-        l = [n.data]
-        while n and s:
-            while s.data in l:
-                s = s.next
+        current = self.head
+        prev = None
+        seen = []
+        while current:
+            if current.data in seen:
+                current = current.next
+                prev.next = current  # prev will never be None here as at first step, seen will be empty
             else:
-                l.append(s.data)
-                n.next = s
-                n = s
-                s = n.next
-        return self.head
+                seen.append(current.data)
+                prev = current
+                current = current.next
 
 
     def remove_dups_efficient(self):
-        pass
+        R"""
+        The efficiency here refers to space. Time will increase to O(n^2).
+        The solution will make use of a running pointer. There are 2 ways to move the running pointer:
+        1. Make a second pointer `prev` or `first` that will, at each move of the `current` pointer, go from the `head` to the `current` pointer. The major issue with that solution would be finding the current pointer to stop the iteration of `prev` as we only use `int` to recognize nodes. Of course, if well implemented, no other value equal to `current.data` would be found twice on the path of `prev` until it reaches `current`.
+        2. Make a second pointer `next` or `last` that will, at each move of `current`, go from the node after current until the end of the LL. The issue here is that we would need to keep track of a `prev` node that we would use to jump `current` if its data is not unique.
+        """
+        prev = None
+        first = self.head
+        current = self.head
+        while current:
+            while first and first.data != current.data:
+                first = first.next
+                if first.data == current.data:
+                    prev.next = current.next
+                    break
+            prev = current
+            current = current.next
+            # TODO: The issue here, is that I cannot know if the `first` that is equal to `current` is in fact current, a duplicate or something else, as the nodes do not have IDs.
+
+
+
     def remove_dups_efficient_circular(self):
         """
         Note: here there won't be no head.
@@ -66,7 +77,7 @@ class SinglyLinkedList:
         return '->'.join(result)
 
 sll = SinglyLinkedList()
-for i in [1, 2, 2, 3, 2, 1]:  # TODO: There is an interesting error here: if I use this list: [1, 2, 2, 3, 2, 1], it does not work, but it does for this [1, 2, 2, 3]
+for i in [1, 2, 2, 3, 2, 1, 4, 1]:
     sll.add_node(i)
 print(sll)
 sll.remove_dups_simple()
