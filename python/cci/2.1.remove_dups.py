@@ -114,29 +114,6 @@ class NodeDoublyLinked:
         self.prev = None
 
 
-def with_buffer_singly_linked(head: NodeSinglyLinked):
-    R"""
-    :param head: The head node of the Linked list
-    :return: returns the same head because there is no way the head would change
-
-    :idea: We use a running pointer to find if a node's data is already in the list, otherwise we add it to the list.
-    If a node is duplicated, we point the slow pointer to the first pointer after the fast pointer that is not
-    duplicated (its data is not in the list). To accomplish this, we use the while...else construct.
-    """
-    n = head
-    s = n.next
-    l = [n.data]
-    while n and s:
-        while s.data in l:
-            s = s.next
-        else:
-            l.append(s.data)
-            n.next = s
-            n = s
-            s = n.next
-    return head
-
-
 def with_buffer_doubly_linked_simple(n: NodeDoublyLinked):
     while n.prev:
         n = n.prev
