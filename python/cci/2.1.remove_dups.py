@@ -47,17 +47,25 @@ class SinglyLinkedList:
         2. Make a second pointer `next` or `last` that will, at each move of `current`, go from the node after current until the end of the LL. The issue here is that we would need to keep track of a `prev` node that we would use to jump `current` if its data is not unique.
         """
         prev = None
-        first = self.head
         current = self.head
         while current:
-            while first and first.data != current.data:
-                first = first.next
-                if first.data == current.data:
-                    prev.next = current.next
+            next_node = current.next
+            is_seen = False
+            while next_node:
+                if next_node.data == current.data:
+                    is_seen = True
                     break
-            prev = current
+                next_node = next_node.next
+            if is_seen:
+                if prev:
+                    prev.next = current.next
+                else:
+                    self.head = current.next
+            else:
+                prev = current
             current = current.next
-            # TODO: The issue here, is that I cannot know if the `first` that is equal to `current` is in fact current, a duplicate or something else, as the nodes do not have IDs.
+
+
 
 
 
@@ -80,7 +88,13 @@ sll = SinglyLinkedList()
 for i in [1, 2, 2, 3, 2, 1, 4, 1]:
     sll.add_node(i)
 print(sll)
-sll.remove_dups_simple()
+sll.remove_dups_efficient()
+print(sll)
+sll = SinglyLinkedList()
+for i in [1, 1]:
+    sll.add_node(i)
+print(sll)
+sll.remove_dups_efficient()
 print(sll)
 
 
