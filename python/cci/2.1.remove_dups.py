@@ -67,11 +67,17 @@ class SinglyLinkedList:
 
 
 
-
-
     def remove_dups_efficient_circular(self):
         """
         Note: here there won't be no head.
+        """
+        pass
+
+
+
+    def remove_dups_efficient_from_node(self, node: NodeSinglyLinked):
+        """
+        Note: here we won't necessarily receive the head.
         """
         pass
 
@@ -112,7 +118,34 @@ class NodeDoublyLinked:
 
 
 class DoublyLinkedList:
-    pass
+    def __init__(self):
+        self.head = None
+
+    def _traverse(self):
+        current = self.head
+        while current.next:
+            current = current.next
+        return current
+
+    def add_node(self, data: int, position: int = -1):
+        r"""
+        Because this is not the challenge here, I will not add methods to add nodes at the start and end of the LL.
+        """
+        if position == -1:
+            # Add at the end
+            end = self._traverse()
+            new_node = NodeDoublyLinked(data)
+            end.next = new_node
+            new_node.prev = end
+        else:
+            if position < 0:
+                return self.head # Edge case
+            elif position == 0:
+                pass
+                # Decide what to do, change the head? Replace it?
+            else:
+                pass
+                # Here manually traverse, pay attention to check the length of the LL not to go beyond
 
 def with_buffer_doubly_linked_simple(n: NodeDoublyLinked):
     while n.prev:
@@ -234,7 +267,3 @@ def remove_duplicates(node: NodeDoublyLinked):
         if current: head = current
     return head
 
-# head1 = remove_duplicates(node)
-# head2 = remove_duplicates(node.prev.prev)
-# head3 = remove_duplicates(head)
-# print_multill(head1, head2, head3)
