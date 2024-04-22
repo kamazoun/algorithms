@@ -67,11 +67,17 @@ class SinglyLinkedList:
 
 
 
-
-
     def remove_dups_efficient_circular(self):
         """
         Note: here there won't be no head.
+        """
+        pass
+
+
+
+    def remove_dups_efficient_from_node(self, node: NodeSinglyLinked):
+        """
+        Note: here we won't necessarily receive the head.
         """
         pass
 
@@ -98,9 +104,6 @@ sll.remove_dups_efficient()
 print(sll)
 
 
-# TODO: simple idea: why not implement the remove function in each class: for instance NodeSinglyLinked could have a remove method that removes the duplicated node and NodeDoublyLinked could also have a remove method. They could all even have multiple methods for `with buffer` and `without buffer`.
-# The issue is that right now, NodeSinglyLinked and NodeDoublyLinked represent nodes, so we would need to either adapt them or create entirely new classes to represent the linked lists.
-
 
 # To account for most cases, we will solve for:
 # 1. When the LL is Singly Linked: We have to receive the head.
@@ -113,6 +116,36 @@ class NodeDoublyLinked:
         self.next = None
         self.prev = None
 
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def _traverse(self):
+        current = self.head
+        while current.next:
+            current = current.next
+        return current
+
+    def add_node(self, data: int, position: int = -1):
+        r"""
+        Because this is not the challenge here, I will not add methods to add nodes at the start and end of the LL.
+        """
+        if position == -1:
+            # Add at the end
+            end = self._traverse()
+            new_node = NodeDoublyLinked(data)
+            end.next = new_node
+            new_node.prev = end
+        else:
+            if position < 0:
+                return self.head # Edge case
+            elif position == 0:
+                pass
+                # Decide what to do, change the head? Replace it?
+            else:
+                pass
+                # Here manually traverse, pay attention to check the length of the LL not to go beyond
 
 def with_buffer_doubly_linked_simple(n: NodeDoublyLinked):
     while n.prev:
@@ -197,86 +230,12 @@ def with_buffer_doubly_linked(n: NodeDoublyLinked):
     #
 
 
-def with_buffer_circular(node: NodeDoublyLinked):
-    R"""
-    The trick here will be to know when a cycle is completed
-    :param node: Any node of the LL
-    :return: Any node
-    """
-    pass
-
-
-def remove_dups_with_buffer(head_node):
-    R"""
-    Implementing this in python might not be as intuitive as it would in c/c++.
-    We assume the nodes are references. Also, we used a dict instead of a hash_table.
-    """
-    n = head_node
-
-    d = {head_node.data: True}
-
-    while n.next:  # != None:
-        if n.next.data in d.keys():
-            n.next = n.next.next
-        else:
-            d[n.next.data] = True
-        n = n.next
-
-    return head_node  # if head is duplicated, it is indeed its duplicate that will be deleted, we won't modify head
-
-
-def remove_dups(head_node):
-    def remove_subs_dups(start):
-        n = start
-        while n.next:
-            if n.next.data == start.data:  # We cannot simply use `is` here. The instances are different, they just
-                # contain same data
-                n.next = n.next.next
-                # We do not return here because there might be more duplicates down the road
-            n = n.next
-
-    n = head_node
-    while n and n.next:
-        remove_subs_dups(n)
-        n = n.next
-
-
-def print_ll(head):
-    while head:
-        print(head.data)
-        head = head.next  # head is not subsequently used
-
-
 def print_multill(head1, head2, head3):
     while head1 and head2 and head3:
         print(f'{head1.data} \t {head2.data} \t {head3.data}')
         head1 = head1.next  # head is not subsequently used
         head2 = head2.next
         head3 = head3.next
-
-
-a = [1, 2, 3, 4, 1, 4, 6, 7]
-# node = head = NodeSinglyLinked(0)
-# for i in a:
-#     n = NodeSinglyLinked(i)
-#     node.next = n
-#     node = n
-#
-# head = with_buffer_singly_linked(head)
-# #print_ll(head)
-
-
-node = head = NodeDoublyLinked(0)
-for i in a:
-    n = NodeDoublyLinked(i)
-    n.prev = node
-    node.next = n
-    node = n
-#
-# head1 = with_buffer_doubly_linked(node)
-# head2 = with_buffer_doubly_linked(node.prev.prev)
-# head3 = with_buffer_doubly_linked(head)
-# print_multill(head1, head2, head3)
 
 
 def remove_duplicates(node: NodeDoublyLinked):
@@ -308,7 +267,3 @@ def remove_duplicates(node: NodeDoublyLinked):
         if current: head = current
     return head
 
-# head1 = remove_duplicates(node)
-# head2 = remove_duplicates(node.prev.prev)
-# head3 = remove_duplicates(head)
-# print_multill(head1, head2, head3)
