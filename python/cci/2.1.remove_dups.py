@@ -116,6 +116,9 @@ class NodeDoublyLinked:
         self.next = None
         self.prev = None
 
+    def __repr__(self):
+        return f"{self.prev.data}<----{self.data}----->{self.next}"
+
 
 class DoublyLinkedList:
     def __init__(self):
@@ -131,10 +134,13 @@ class DoublyLinkedList:
         r"""
         Because this is not the challenge here, I will not add methods to add nodes at the start and end of the LL.
         """
+        new_node = NodeDoublyLinked(data)
+        if self.head is None:
+            self.head = new_node
+            return
         if position == -1:
             # Add at the end
             end = self._traverse()
-            new_node = NodeDoublyLinked(data)
             end.next = new_node
             new_node.prev = end
         else:
@@ -146,6 +152,37 @@ class DoublyLinkedList:
             else:
                 pass
                 # Here manually traverse, pay attention to check the length of the LL not to go beyond
+
+    def remove_dups_simple(self):
+        seen = []
+        current = self.head
+        while current:
+            if current.data in seen:
+                print(current)
+                current.prev.next = current.next # Because the head will not be in the list at first, current.prev will NEVER be None.
+            else:
+                seen.append(current.data)
+            current = current.next
+            print(self)
+        return self.head
+
+    def __repr__(self):
+        current = self.head
+        result = []
+        while current:
+            result.append(str(current.data))
+            current = current.next
+        return "<->".join(result)
+
+
+
+dll = DoublyLinkedList()
+for i in [1, 2, 3, 3, 4, 1, 1]:
+    dll.add_node(i)
+print(dll)
+dll.remove_dups_simple()
+print(dll)
+
 
 def with_buffer_doubly_linked_simple(n: NodeDoublyLinked):
     while n.prev:
