@@ -158,12 +158,12 @@ class DoublyLinkedList:
         current = self.head
         while current:
             if current.data in seen:
-                print(current)
-                current.prev.next = current.next # Because the head will not be in the list at first, current.prev will NEVER be None.
+                current.prev.next = current.next # Because the head will not be in the list at first, current.prev will NEVER be None.\
+                if current.next is not None:
+                    current.next.prev = current.prev
             else:
                 seen.append(current.data)
             current = current.next
-            print(self)
         return self.head
 
     def __repr__(self):
