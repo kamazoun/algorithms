@@ -184,24 +184,6 @@ dll.remove_dups_simple()
 print(dll)
 
 
-def with_buffer_doubly_linked_simple(n: NodeDoublyLinked):
-    while n.prev:
-        n = n.prev
-
-    head = n
-    s = n.next
-    l = [n.data]
-    while n and s:
-        while s.data in l:
-            s = s.next
-        else:
-            l.append(s.data)
-            n.next = s
-            n = s
-            s = n.next
-    return head
-
-
 def with_buffer_doubly_linked(n: NodeDoublyLinked):
     R"""
     :param n: Any node, does not need to be the head.
