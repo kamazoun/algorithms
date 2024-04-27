@@ -65,15 +65,11 @@ class SinglyLinkedList:
                 prev = current
             current = current.next
 
-
-
     def remove_dups_efficient_circular(self):
         """
         Note: here there won't be no head.
         """
         pass
-
-
 
     def remove_dups_efficient_from_node(self, node: NodeSinglyLinked):
         """
@@ -103,12 +99,6 @@ print(sll)
 sll.remove_dups_efficient()
 print(sll)
 
-
-
-# To account for most cases, we will solve for:
-# 1. When the LL is Singly Linked: We have to receive the head.
-# 2. When it is Doubly Linked (to make it interesting we will not expect to necessarily receive the head but any node).
-# 3. When it is doubly linked and circular
 
 class NodeDoublyLinked:
     def __init__(self, data: int):
@@ -166,6 +156,28 @@ class DoublyLinkedList:
             current = current.next
         return self.head
 
+    def remove_dups_efficient(self):
+        current = self.head
+        while current:
+            runner = current.next
+            while runner:
+                if runner.data == current.data:
+                    runner.prev.next = runner.next
+                    if runner.next:
+                        runner.next.prev = runner.prev
+                runner = runner.next
+            current = current.next
+        return self.head
+
+    def remove_dups_efficient_circular(self):
+        pass
+
+    def remove_dups_efficient_from_node(self, node: NodeSinglyLinked):
+        """
+        Note: here we won't necessarily receive the head.
+        """
+        pass
+
     def __repr__(self):
         current = self.head
         result = []
@@ -175,12 +187,12 @@ class DoublyLinkedList:
         return "<->".join(result)
 
 
-
 dll = DoublyLinkedList()
 for i in [1, 2, 3, 3, 4, 1, 1]:
     dll.add_node(i)
 print(dll)
-dll.remove_dups_simple()
+dll.remove_dups_efficient()
+# dll.remove_dups_simple()
 print(dll)
 
 
