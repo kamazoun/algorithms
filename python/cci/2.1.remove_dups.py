@@ -73,7 +73,12 @@ class SinglyLinkedList:
 
     def remove_dups_efficient_from_node(self, node: NodeSinglyLinked):
         """
-        Note: here we won't necessarily receive the head.
+        Note: Practically there is no need to do that if the LL is not circular, because even if we start at a node, we will also need to restart at the head in order to complete the full LL as, there is no `prev` link to go backwards.
+        So, I will work on this method with the assumption that the list is circular.
+        One aspect to test when the list is circular, is how it behaves for a single pointing to itself.
+        That also leads me to question the algorithm that should decide of the length of the list, because is the list has a unique node that points to itself, it should be a circular ll of length one. But if it has 2 nodes with the same data, it should be a circular ll of length 2.
+        I guess, we can approach the problem, considering any number of adjacent nodes with the same value as 1 node.
+        For instance 1 -> 1 -> 1 -> 2 -> 1 -> 2 -> 2 -> 3 would give 1 -> 2 -> 1 -> 2 -> 3.
         """
         pass
 
@@ -127,15 +132,16 @@ class DoublyLinkedList:
         new_node = NodeDoublyLinked(data)
         if self.head is None:
             self.head = new_node
-            return
+            return None
         if position == -1:
             # Add at the end
             end = self._traverse()
             end.next = new_node
             new_node.prev = end
+            return new_node
         else:
             if position < 0:
-                return self.head # Edge case
+                return None # Edge case
             elif position == 0:
                 pass
                 # Decide what to do, change the head? Replace it?
@@ -172,11 +178,36 @@ class DoublyLinkedList:
     def remove_dups_efficient_circular(self):
         pass
 
-    def remove_dups_efficient_from_node(self, node: NodeSinglyLinked):
+    def remove_dups_efficient_from_node(self, node: NodeDoublyLinked):
         """
         Note: here we won't necessarily receive the head.
+        We need to check forward and backwards from the node.
+        We could use a list to keep track of the node seen, otherwise we would need to go from end to end checking if a node is duplicated, which is what we will do to try making it more challenging.
         """
-        pass
+        # TODO: The code has an error in the backwards implementation and also struggles with deepcopy error. (current becomes None and so does node)
+        current_prev, current_next = node, node
+        # Removing duplicates backwards from current_prev
+        while current_prev:
+            prev_node = current_prev.prev
+            while prev_node:
+                if prev_node.data == current_prev.data:
+                    if prev_node.prev:
+                        prev_node.prev.next = current_prev
+                    current_prev.prev = prev_node.prev
+                prev_node = prev_node.prev
+            current_prev = current_prev.prev
+
+        # Removing duplicates forward from current_next
+        while current_next:
+            runner = current_next.next
+            while runner:
+                if runner.data == current_next.data:
+                    runner.prev.next = runner.next
+                    if runner.next:
+                        runner.next.prev = runner.prev
+                runner = runner.next
+            current_next = current_next.next
+        return self.head
 
     def __repr__(self):
         current = self.head
@@ -188,10 +219,11 @@ class DoublyLinkedList:
 
 
 dll = DoublyLinkedList()
+node = dll.add_node(1)
 for i in [1, 2, 3, 3, 4, 1, 1]:
     dll.add_node(i)
 print(dll)
-dll.remove_dups_efficient()
+dll.remove_dups_efficient_from_node(node)
 # dll.remove_dups_simple()
 print(dll)
 
