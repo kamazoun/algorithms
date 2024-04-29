@@ -132,7 +132,7 @@ class DoublyLinkedList:
         new_node = NodeDoublyLinked(data)
         if self.head is None:
             self.head = new_node
-            return None
+            return new_node
         if position == -1:
             # Add at the end
             end = self._traverse()
@@ -184,8 +184,10 @@ class DoublyLinkedList:
         We need to check forward and backwards from the node.
         We could use a list to keep track of the node seen, otherwise we would need to go from end to end checking if a node is duplicated, which is what we will do to try making it more challenging.
         """
-        # TODO: The code has an error in the backwards implementation and also struggles with deepcopy error. (current becomes None and so does node)
-        current_prev, current_next = node, node
+        # TODO: The code has an error in the backwards implementation and also struggles with deepcopy error.
+        current_prev = current_next = None
+        if node:
+            current_prev, current_next = node.prev, node.next
         # Removing duplicates backwards from current_prev
         while current_prev:
             prev_node = current_prev.prev
@@ -219,13 +221,16 @@ class DoublyLinkedList:
 
 
 dll = DoublyLinkedList()
-node = dll.add_node(1)
+for i in [5]:
+    node = dll.add_node(i)
 for i in [1, 2, 3, 3, 4, 1, 1]:
     dll.add_node(i)
+print(node.data)
 print(dll)
 dll.remove_dups_efficient_from_node(node)
 # dll.remove_dups_simple()
 print(dll)
+
 
 
 def with_buffer_doubly_linked(n: NodeDoublyLinked):
