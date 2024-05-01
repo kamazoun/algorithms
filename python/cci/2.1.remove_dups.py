@@ -184,13 +184,14 @@ class DoublyLinkedList:
         We need to check forward and backwards from the node.
         We could use a list to keep track of the node seen, otherwise we would need to go from end to end checking if a node is duplicated, which is what we will do to try making it more challenging.
         """
-        # TODO: The code has an error in the backwards implementation and also struggles with deepcopy error.
+        back_seen = set()
         current_prev = current_next = None
         if node:
-            current_prev, current_next = node.prev, node.next
+            current_prev, current_next = node.prev, node
         # Removing duplicates backwards from current_prev
         while current_prev:
             prev_node = current_prev.prev
+            back_seen.add(current_prev.data)
             while prev_node:
                 if prev_node.data == current_prev.data:
                     if prev_node.prev:
@@ -198,12 +199,18 @@ class DoublyLinkedList:
                     current_prev.prev = prev_node.prev
                 prev_node = prev_node.prev
             current_prev = current_prev.prev
-
+        # Removing the duplicates of current_prev. For instance if node is the second `3` here: 1->2->3->3->3->5, without the following loop, 3 would be duplicated.
+        while current_next and current_next.data in back_seen: # Here I wanted to compare it to node.prev.data, but that would give an error, because then current_next could be another duplicated node different than node.prev.
+            if current_next.prev:
+                current_next.prev.next = current_next.next
+            if current_next.next:
+                current_next.next.prev = current_next.prev
+            current_next = current_next.next
         # Removing duplicates forward from current_next
         while current_next:
             runner = current_next.next
             while runner:
-                if runner.data == current_next.data:
+                if runner.data == current_next.data or runner.data in back_seen:
                     runner.prev.next = runner.next
                     if runner.next:
                         runner.next.prev = runner.prev
@@ -221,7 +228,7 @@ class DoublyLinkedList:
 
 
 dll = DoublyLinkedList()
-for i in [5]:
+for i in [5, 2, 2, 3, 3, 4, 1, 1]:
     node = dll.add_node(i)
 for i in [1, 2, 3, 3, 4, 1, 1]:
     dll.add_node(i)
