@@ -67,7 +67,10 @@ class SinglyLinkedList:
 
     def remove_dups_efficient_circular(self):
         """
-        Note: here there won't be no head.
+        I have to think about how to know a cycle has been completed.
+        Would it be necessary for each node to have an id? Or to compare `objects` instead of the data each node holds? If yes, we could use a runner that would move twice as fast as the slow pointer, and (expect that they meet at soon as slow made 1 cycle?)
+
+        It actually does not matter to find the cycle or its length, because in this challenge, we only need to remove dups, which will be the case if we go through the list in order, without finding a duplicate element. That list size would then be the length of the LL.
         """
         pass
 
