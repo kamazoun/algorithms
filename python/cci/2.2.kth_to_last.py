@@ -11,7 +11,19 @@ def kth_to_last_new(head: Node, k: int) -> Node:
     The first idea I have here is to have a runner move k position before starting to move the head node.
     We need to pay attention of edge cases (such as when the list is less that k element long).
     """
-    pass
+    runner = head
+    i = 0
+    while runner and i < k:
+        runner = runner.next
+        i += 1
+
+    current = head
+    while runner:
+        current = current.next
+        runner = runner.next
+    return current
+# TODO: check when there is less than k elements in the list (loop 1). What should we return? The head is currently returned.
+
 def kth_to_last(head, k):
     R'''
     O(n) time and O(1) space.
