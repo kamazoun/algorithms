@@ -3,8 +3,12 @@ R'''
 '''
 
 class Node:
-    def __init__(self):
-        next = None
+    def __init__(self, data: int):
+        self.data = data
+        self.next = None
+
+    def __repr__(self):
+        return f"{self.data}"
 
 def kth_to_last_new(head: Node, k: int) -> Node:
     R"""
@@ -23,6 +27,15 @@ def kth_to_last_new(head: Node, k: int) -> Node:
         runner = runner.next
     return current
 # TODO: check when there is less than k elements in the list (loop 1). What should we return? The head is currently returned.
+
+head = Node(0)
+node = head
+for i in range(1, 10):
+    node.next = Node(i)
+    node = node.next
+
+r = kth_to_last_new(head, 3)
+print(r)
 
 def kth_to_last(head, k):
     R'''
