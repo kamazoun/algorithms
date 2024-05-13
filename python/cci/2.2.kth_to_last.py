@@ -26,16 +26,19 @@ def kth_to_last_new(head: Node, k: int) -> Node:
         current = current.next
         runner = runner.next
     return current
-# TODO: check when there is less than k elements in the list (loop 1). What should we return? The head is currently returned.
+# TODO: What should we return? The head is currently returned.
 
 head = Node(0)
 node = head
-for i in range(1, 10):
+for i in range(1, 1):
     node.next = Node(i)
     node = node.next
 
-r = kth_to_last_new(head, 3)
+r = kth_to_last_new(head, 13)
 print(r)
+
+
+
 
 def kth_to_last(head, k):
     R'''
