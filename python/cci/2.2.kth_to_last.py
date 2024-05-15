@@ -26,7 +26,7 @@ def kth_to_last_new(head: Node, k: int) -> Node:
         current = current.next
         runner = runner.next
     return current
-# TODO: What should we return? The head is currently returned.
+
 
 head = Node(0)
 node = head
