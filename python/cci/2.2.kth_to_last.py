@@ -2,13 +2,7 @@ R'''
  Implement an algorithm to find the kth to last element of a singly linked list.
 '''
 
-class Node:
-    def __init__(self, data: int):
-        self.data = data
-        self.next = None
-
-    def __repr__(self):
-        return f"{self.data}"
+from node import Node
 
 def kth_to_last_new(head: Node, k: int) -> Node:
     R"""
