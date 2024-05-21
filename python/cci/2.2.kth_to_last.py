@@ -4,6 +4,11 @@ R'''
 
 from node import Node
 
+
+def kth_to_last_recursive():
+    # TODO
+    pass
+
 def kth_to_last_new(head: Node, k: int) -> Node:
     R"""
     The first idea I have here is to have a runner move k position before starting to move the head node.
