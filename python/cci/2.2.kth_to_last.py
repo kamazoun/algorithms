@@ -5,8 +5,7 @@ R'''
 from node import Node
 
 
-def kth_to_last_recursive():
-    # TODO
+def kth_to_last_recursive(head: Node, depth=0):
     pass
 
 def kth_to_last_new(head: Node, k: int) -> Node:
