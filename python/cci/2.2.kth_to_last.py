@@ -5,8 +5,13 @@ R'''
 from node import Node
 
 
-def kth_to_last_recursive(head: Node, depth=0):
-    pass
+def kth_to_last_recursive(head: Node, k):
+    if not head.next:
+        return 0
+    else:
+        r = kth_to_last_new(head.next)
+        if r == k:
+            return head
 
 def kth_to_last_new(head: Node, k: int) -> Node:
     R"""
