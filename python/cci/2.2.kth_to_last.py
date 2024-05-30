@@ -39,8 +39,8 @@ for i in range(1, 10):
     node.next = Node(i)
     node = node.next
 
-r = kth_to_last_recursive(head, 3)
-print(r)
+r, node = kth_to_last_recursive(head, 11)
+print(node)
 
 
 
@@ -65,3 +65,4 @@ def kth_to_last(head, k):
         m = m.next
 
     return m
+
