@@ -7,11 +7,13 @@ from node import Node
 
 def kth_to_last_recursive(head: Node, k):
     if not head.next:
-        return 0
+        return 1, head
     else:
-        r = kth_to_last_new(head.next)
+        r, n = kth_to_last_recursive(head.next, k)
         if r == k:
-            return head
+            return r, n
+        else:
+            return r + 1, head
 
 def kth_to_last_new(head: Node, k: int) -> Node:
     R"""
@@ -33,11 +35,11 @@ def kth_to_last_new(head: Node, k: int) -> Node:
 
 head = Node(0)
 node = head
-for i in range(1, 1):
+for i in range(1, 10):
     node.next = Node(i)
     node = node.next
 
-r = kth_to_last_new(head, 13)
+r = kth_to_last_recursive(head, 3)
 print(r)
 
 
