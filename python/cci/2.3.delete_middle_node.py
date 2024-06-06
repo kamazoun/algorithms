@@ -31,9 +31,21 @@ def delete_middle_node(node: None) -> Node:
 def del_middle_node(middle):
     if middle.next: #Should be true,as middle is not tail. If middle could be tail, we can set to none or a dummy or sentinel. Should point that out to interviewer.
         middle = middle.next
-
     '''
     Same as:
     middle.data = middle.next.data
     middle.next = middle.next.next
     '''
+
+node1 = Node(1)
+node2 = Node(2)
+node3 = Node(3)
+node1.next = node2
+node2.next = node3
+
+# del_middle_node(node2)
+current = node1
+node2 = node3
+while current:
+    print(current.data, end=" --> ")
+    current = current.next
