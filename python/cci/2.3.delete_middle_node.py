@@ -25,6 +25,9 @@ I also read an article on Medium recently that explained the way Python deals wi
 To keep the code clean, I will include the explanation and reasoning in the file containing the node class.
 """
 
+# TODO
+
+
 def delete_middle_node(node: None) -> Node:
     pass
 
