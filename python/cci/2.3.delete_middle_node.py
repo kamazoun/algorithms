@@ -25,8 +25,16 @@ Here let's try to implement 2 solutions:
 # TODO
 
 
-def delete_middle_node(node: None) -> Node:
+def delete_middle_node(middle: Node) -> None:
     pass
+
+def delete_middle_node_auth(middle: Node) -> bool:
+    if not middle or not middle.next:
+        return False
+    middle.data = middle.next.data
+    middle.next = middle.next.next
+    return True
+
 
 def del_middle_node(middle):
     if middle.next: #Should be true,as middle is not tail. If middle could be tail, we can set to none or a dummy or sentinel. Should point that out to interviewer.
