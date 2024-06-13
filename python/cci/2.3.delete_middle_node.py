@@ -28,7 +28,7 @@ Here let's try to implement 2 solutions:
 def delete_middle_node(middle: Node) -> None:
     pass
 
-def delete_middle_node_auth(middle: Node) -> bool:
+def delete_middle_node_author(middle: Node) -> bool:
     if not middle or not middle.next:
         return False
     middle.data = middle.next.data
@@ -51,7 +51,7 @@ node3 = Node(3)
 node1.next = node2
 node2.next = node3
 
-# del_middle_node(node2)
+#delete_middle_node_author(node2)
 current = node1
 node2 = node3
 while current:
