@@ -1,0 +1,23 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="chromadb" />
+            <item index="1" class="java.lang.String" itemvalue="tiktoken" />
+            <item index="2" class="java.lang.String" itemvalue="openai" />
+            <item index="3" class="java.lang.String" itemvalue="docx2txt" />
+            <item index="4" class="java.lang.String" itemvalue="langchain" />
+            <item index="5" class="java.lang.String" itemvalue="streamlit" />
+            <item index="6" class="java.lang.String" itemvalue="python-dotenv" />
+            <item index="7" class="java.lang.String" itemvalue="pypdf" />
+            <item index="8" class="java.lang.String" itemvalue="wikipedia" />
+            <item index="9" class="java.lang.String" itemvalue="streamlit-chat" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

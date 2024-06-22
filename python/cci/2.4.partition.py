@@ -5,9 +5,10 @@ Input: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1 [partition= 5]
 Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 '''
 
+from node import Node
 
-
-def partition(head: LinkedListNode, x: int):
+ 
+def partition(head: Node, x: int):
     R'''
     Mine: I had forgotten to return head.
     '''
@@ -36,3 +37,7 @@ def partition(head: LinkedListNode, x: int):
     else:
         return middle
  # Author's just uses two nodes head and tail and append before head and after tail
+
+
+def partition_new(head: Node, x: int):
+    pass
