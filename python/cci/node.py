@@ -5,6 +5,13 @@ class Node:
 
     def __repr__(self):
         return f"{self.data}"
+    
+    def traverse(self):
+        current = self
+        while current:
+            print(current.data, end=" --> ")
+            current = current.next
+
 
 
 """
