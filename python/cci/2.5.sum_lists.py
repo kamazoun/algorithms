@@ -29,7 +29,7 @@ prev = None
 for i in a:
     node = Node(i)
     if prev:
-        prev.next = Node
+        prev.next = node
     else:
         head_a = node
     prev = node
