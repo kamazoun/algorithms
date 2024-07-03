@@ -4,21 +4,28 @@ TODO
 from node import Node
 
 def sum_lists(head1: Node, head2: Node) -> Node:
+    head_r = None
     result = None
     retenue = 0
-    while head1 or head2:
+    while (head1 is not None) or head2:
+        a = b = 0
         if head1:
             a = head1.data
+            head1 = head1.next
         if head2:
             b = head2.data
+            head2 = head2.next
         r = a + b + retenue
-        retenue = r / 10
+        retenue = int(r / 10)
         if result:
-            result.next = Node(r % 10)
+            new_node = Node(r % 10)
+            result.next = new_node
+            result = result.next
         else:
             result = Node(r % 10)
+            head_r = result
             
-    return result
+    return head_r
 
 a = [1, 2, 3]
 b = [4, 5, 6]
@@ -33,10 +40,20 @@ for i in a:
     else:
         head_a = node
     prev = node
+head_b = None
+node = None
+prev = None
+for i in b:
+    node = Node(i)
+    if prev:
+        prev.next = node
+    else:
+        head_b = node
+    prev = node
 
-#print(head_a.data)
-head_a = head_a.next
-print(head_a.data)
-for i in range(1):
-    print(head_a.data)
-    head_a = head_a.next
+
+head_r = sum_lists(head_a, head_b)
+
+while head_r:
+    print(head_r.data, end= " ---> ")
+    head_r = head_r.next
