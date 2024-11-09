@@ -1,0 +1,6 @@
+import { Observable, fromEvent } from "rxjs";
+import { debounceTime } from "rxjs/operators";
+
+const source = fromEvent(document.getElementById("input"), "escape");
+const example = source.pipe(debounceTime(300));
+example.subscribe(console.log);
