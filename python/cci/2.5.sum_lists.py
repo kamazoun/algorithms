@@ -35,6 +35,7 @@ def primary_case(h1: Node, h2: Node) -> Node:
     
     r = 0 # Retenue
     h3 = None
+    head = None
     while h1 or h2:
         if h1 and h2:
             v = h1.data + h2.data + r
@@ -46,6 +47,9 @@ def primary_case(h1: Node, h2: Node) -> Node:
                 h3 = h3.next
             else:
                 h3 = n
+                head = h3
+            h1 = h1.next
+            h2 = h2.next
         else:
             if h1:
                 h3.next = Node(h1.data)
@@ -54,14 +58,20 @@ def primary_case(h1: Node, h2: Node) -> Node:
                 h3.next = Node(h2.data)
                 h2 = h2.next
             h3 = h3.next
-    return h3
+    return head
 
+
+def follow_up(h1: Node, h2: Node) -> Node:
+    """The easiest way would be to traverse the list, save the encountered values in an array, perform the sum, reconstruct a list and return it.
+    The time constraint would be the same but the space complexity would be O(n+m)
+    """
+    pass
 
 
 # ============= TESTS ================>
 
 a = [1, 2, 3]
-b = [4, 5]
+b = [4, 5,]
 
 head_a = None
 node = None
@@ -87,12 +97,20 @@ for i in b:
 
 head_r = sum_lists(head_a, head_b)
 
-while head_r:
-    print(head_r.data, end= " ---> ")
-    head_r = head_r.next
+head_r.traverse()
+
+print()
 
 head_r = primary_case(head_a, head_b)
 
-while head_r:
-    print(head_r.data, end= " ---> ")
-    head_r = head_r.next
+head_r.traverse()
+
+
+print('FOLLOW UP CASE:\n\n\n')
+
+print('123 + 45:')
+
+head_r = follow_up(head_a, head_b)
+
+head_r.traverse()
+
