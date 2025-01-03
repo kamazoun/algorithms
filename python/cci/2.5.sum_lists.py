@@ -64,6 +64,7 @@ def primary_case(h1: Node, h2: Node) -> Node:
 def follow_up(h1: Node, h2: Node) -> Node:
     """The easiest way would be to traverse the list, save the encountered values in an array, perform the sum, reconstruct a list and return it.
     The time constraint would be the same but the space complexity would be O(n+m)
+    It seems like the author will use a recursive solution to solve this problem. But that would have the same space complexity as the solution discussed above.
     """
     pass
 
