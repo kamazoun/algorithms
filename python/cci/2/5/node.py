@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Node:
     def __init__(self, data: int):
         self.data = data
@@ -13,6 +16,18 @@ class Node:
             current = current.next
 
 
+def build_linked_list(data: List) -> Node:
+    head = None
+    node = None
+    prev = None
+    for i in data:
+        node = Node(i)
+        if prev:
+            prev.next = node
+        else:
+            head = node
+        prev = node
+    return head
 
 """
 Here is what I got from a conversation with Gemini:

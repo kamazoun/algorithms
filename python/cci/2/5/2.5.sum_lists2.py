@@ -3,31 +3,6 @@ TODO
 """
 from node import Node
 
-def sum_lists(head1: Node, head2: Node) -> Node:
-    head_r = None
-    result = None
-    retenue = 0
-    while (head1 is not None) or head2:
-        a = b = 0
-        if head1:
-            a = head1.data
-            head1 = head1.next
-        if head2:
-            b = head2.data
-            head2 = head2.next
-        r = a + b + retenue
-        retenue = int(r / 10)
-        if result:
-            new_node = Node(r % 10)
-            result.next = new_node
-            result = result.next
-        else:
-            result = Node(r % 10)
-            head_r = result
-            
-    return head_r
-
-
 
 def primary_case(h1: Node, h2: Node) -> Node:
     if not h1 or not h2:
@@ -96,12 +71,6 @@ for i in b:
     prev = node
 
 
-head_r = sum_lists(head_a, head_b)
-
-head_r.traverse()
-
-print()
-
 head_r = primary_case(head_a, head_b)
 
 head_r.traverse()
@@ -113,5 +82,5 @@ print('123 + 45:')
 
 head_r = follow_up(head_a, head_b)
 
-head_r.traverse()
+# head_r.traverse()
 
