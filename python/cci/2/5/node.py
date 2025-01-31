@@ -2,9 +2,9 @@ from typing import List
 
 
 class Node:
-    def __init__(self, data: int):
+    def __init__(self, data: int, next = None):
         self.data = data
-        self.next = None
+        self.next = next
 
     def __repr__(self):
         return f"{self.data}"
