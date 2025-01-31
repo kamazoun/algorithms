@@ -20,7 +20,8 @@ def sum_lists(l1: Node, l2: Node, carry = 0) -> Node:
         return result
 
 
-
+def follow_up(l1: Node, l2: Node) -> Node:
+      pass
 
 # ============= TESTS ================>
 a = [1, 2, 3]
