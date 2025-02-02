@@ -13,5 +13,6 @@ To put it simply, the common implementation error was not being able to `compres
 
 2.3: The author's solution was simple and brilliant. The problem raises some nice questions.
 
-2.5: Needs a lot of subtle thinking, particularly for the follow up.
+2.5: Needs a lot of subtle thinking, particularly for the follow up. Particularly, the choice of solving it `recursively` can affect quite a lot of things and much more when dealing with the follow-up.
+
 END CCI SECTION ----------------------------------------------------------------
