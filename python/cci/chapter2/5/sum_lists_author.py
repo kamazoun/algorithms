@@ -1,6 +1,32 @@
 r"""
 TODO
 """
+    # my_python_project/python/cci/problem2/5/some_file.py
+
+    import sys
+    import os
+
+    # Step 1: Determine the current script's directory
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Step 2: Determine the project root directory
+    # Adjust the number of '../' based on your project structure
+    project_root = os.path.abspath(os.path.join(current_dir, '../../..'))
+
+    # Step 3: Add the project root to sys.path if it's not already there
+    if project_root not in sys.path:
+        sys.path.insert(0, project_root)
+
+    # Step 4: Perform the import using absolute paths
+    from cci.problem2.node import Node
+
+    def some_function():
+        node = Node(10)
+        print(f'Node value: {node.value}')
+
+    if __name__ == "__main__":
+        some_function()
+
 from node import Node
 from node import build_linked_list
 
