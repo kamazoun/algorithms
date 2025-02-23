@@ -6,20 +6,20 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 # Step 2: Determine the project root directory
 # Adjust the number of '../' based on your projectstructure
 project_root = os.path.abspath(os.path.join(current_dir, '../../..'))
-print(project_root)
+print("We are current here: ", project_root, '\n')
 # Step 3: Add the project root to sys.path if it'snot already there
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
+    print("Added the project root to sys.path")
+else:
+    print("Project root is already in sys.path")
+
 # Step 4: Perform the import using absolute paths
 from cci.chapter2.node import Node
+
 def is_palindrome(head: Node) -> bool:
     pass
-    # values = []
-    # current = head
-    # while current:
-    #     values.append(current.value)
-    #     current = current.next
-    # return values == values[::-1]
+    
 
 
 if __name__ == "__main__":
