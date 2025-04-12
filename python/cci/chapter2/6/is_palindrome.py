@@ -35,21 +35,11 @@ def is_palindrome(head: Node) -> bool:
     # Step 3: Compare the first half and the reversed second half
     first_half = head
     second_half = prev
-    while first_half:
+    while second_half:
         if first_half.data != second_half.data:
             return False
         first_half = first_half.next
-        if first_half:
-            second_half = second_half.next
-    # Step 4: Restore the original linked list (optional)
-    current = prev
-    print("current", current)
-    prev = None
-    while current:
-        next_node = current.next
-        current.next = prev
-        prev = current
-        current = next_node
+        second_half = second_half.next
     return True
     
 
@@ -63,8 +53,13 @@ if __name__ == "__main__":
     node2.next = node3
     print(is_palindrome(node1))
     node4 = Node(1)
-    node3.next = node4
-    print(is_palindrome(node1))
+    node5 = Node(2)
+    node6 = Node(2)
+    node7 = Node(1)
+    node4.next = node5
+    node5.next = node6
+    node6.next = node7
+    print(is_palindrome(node4))
 
 
 
