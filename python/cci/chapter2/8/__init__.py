@@ -1,10 +1,11 @@
 """
-Given two (singly) linked lists, determine if the two lists intersect. Return the intersecting node. Note that the intersection is defined based on reference, not value.That is, if the kth
-node of the first linked list is the exact same node (by reference) as the jth node of the second
-linked list, then they are intersecting.
-
-You can do this in O(A+B) time and 0(1) additional space. That is, you do not need a
-hash table (although you could do it with one)
+Loop Detection: Given a circular linked list, implement an algorithm that returns the node at the beginning of the loop.
+DEFINITION
+Circular linked list: A (corrupt) linked list in which a node's next pointer points to an earlier node, so
+as to make a loop in the linked list.
+EXAMPLE
+Input:A - > B - > C - > D - > E - > C [the same C as earlier]
+Output:C
 """
 
 
@@ -28,10 +29,25 @@ else:
 from cci.chapter2.node import Node
 
 
-def loop(head1: Node, head2: Node) -> Node:
+def loop(head: Node) -> Node:
     """
     Using Flyoyd's Tortoise and Hare algorithm to find the intersection point of two linked lists."""
-    pass
+    if not head:
+        return None
+    fast, slow = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:  # Collision point
+            break
+    else:
+        return None  # No loop
+    fast = head
+    while fast != slow:
+        fast = fast.next
+        slow = slow.next
+    return fast
+    
 
 if __name__ == "__main__":
     # Example Usage
@@ -46,12 +62,12 @@ if __name__ == "__main__":
     node1.next = node2
     node2.next = node3
     node3.next = node4
-
+    node4.next = node5
     node5.next = node6
     node6.next = node4  # Intersection at node4
 
-    # intersection_node = intersection(node1, node5)
-    # if intersection_node:
-    #     print(f"Intersecting Node: {intersection_node.data}")
-    # else:
-    #     print("No Intersection")
+    intersection_node = loop(node1)
+    if intersection_node:
+        print(f"Intersecting Node: {intersection_node.data}")
+    else:
+        print("No Intersection")
