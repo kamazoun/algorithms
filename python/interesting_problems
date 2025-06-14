@@ -15,4 +15,8 @@ To put it simply, the common implementation error was not being able to `compres
 
 2.5: Needs a lot of subtle thinking, particularly for the follow up. Particularly, the choice of solving it `recursively` can affect quite a lot of things and much more when dealing with the follow-up.
 
+3.3: S&Q not difficult but with a lot edge cases.
+
+3.4
+
 END CCI SECTION ----------------------------------------------------------------
