@@ -1,6 +1,9 @@
 
 
 class MyQueue:
+    """
+    Strategy (with author's hint and good night sleep:) ): We push whenever we want to enqueue, and when we want to dequeue, we `reverse` the first stack into the second stack. Then we pop from the second stack until it is empty.
+    """
     def __init__(self):
         self.stack1 = []
         self.stack2 = []
