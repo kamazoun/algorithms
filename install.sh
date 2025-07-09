@@ -22,10 +22,10 @@ fi
 if [ -f "docker-compose.yml" ]; then
   docker compose up -d
   echo "Waiting for containers to initialize..."
-  echo "Please allow 2-3 minutes for the app to start."
+  echo "Please allow a moment for the app to start."
 else
   echo "docker-compose.yml not found!"
   exit 1
 fi
 
-echo "App is starting! Visit http://localhost:3000" 
+echo "App is starting! Served at http://localhost:3000" 
