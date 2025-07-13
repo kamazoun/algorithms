@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Any
 
 
 class Node:
-    def __init__(self, data: int, next = None):
+    def __init__(self, data: Any, next = None):
         self.data = data
         self.next = next
 
@@ -14,6 +14,9 @@ class Node:
         while current:
             print(current.data, end=" --> ")
             current = current.next
+
+    def is_empty(self):
+        return self.data is None and self.next is None
 
 
 def build_linked_list(data: List) -> Node:

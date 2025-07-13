@@ -14,44 +14,124 @@ else:
     print("Project root is already in sys.path")
 
 # Step 4: Perform the import using absolute paths
-from cci.common_ds import DoubleNode
+
 from cci.node import Node
 
-class Animal:
-    def __init__(self, name, type):
-        self.name = name
-        self.type = type  # 'dog' or 'cat'
-        self.next = None
 
-    def __repr__(self):
-        return f"{self.type.capitalize()}({self.name})"
+class Animal:
+    def __init__(self, number, type = 'dog'):
+        self.type = type
+        self.number = number
 
 class AnimalShelter:
     def __init__(self):
-        self.all = DoubleNode()
-        self.dogs = Node()
-        self.cats = Node()
+        self.dogs = None
+        self.cats = None
+        self.number = 0
 
-    def enqueue(self, animal: Animal):
-        self.all.append(animal)
+    def enqueue(self, type: str):
+        animal = Animal(self.number + 1, type)
         if animal.type == 'dog':
-            self.dogs.append(animal)
+            if self.dogs is None:
+                self.dogs = Node(animal)
+            else:
+                current = self.dogs
+                while current.next:
+                    current = current.next
+                current.next = Node(animal)
+            self.number += 1
         elif animal.type == 'cat':
-            self.cats.append(animal)
-
+            if self.cats is None:
+                self.cats = Node(animal)
+            else:
+                current = self.cats
+                while current.next:
+                    current = current.next
+                current.next = Node(animal)
+            self.number += 1
+        else:
+            raise ValueError("Animal type must be 'dog' or 'cat'")
+        
     def dequeue_any(self):
-        if self.all.is_empty():
+        if self.number == 0 or (self.dogs is None and self.cats is None):
             raise Exception("No animals in shelter")
-        #animal = self.all.remove_first()
-        #if animal.type == 'dog':
-        #     self.dogs.remove(animal)
-        # elif animal.type == 'cat':
-        #     self.cats.remove(animal)
-        # return animal
+        else:
+            dog = cat = None
+            if self.dogs is not None:
+                dog = self.dogs.data
+            if not self.cats is None:
+                cat = self.cats.data
+            if dog and cat:
+                if dog.number < cat.number:
+                    self.dogs = self.dogs.next
+                    self.number -= 1
+                    return dog
+                else:
+                    self.cats = self.cats.next
+                    self.number -= 1
+                    return cat
+            elif dog:
+                self.dogs = self.dogs.next
+                self.number -= 1
+                return dog
+            elif cat:
+                self.cats = self.cats.next
+                self.number -= 1
+                return cat
+
 
     def dequeue_dog(self):
-        if self.dogs.is_empty():
-            raise Exception("No dogs in shelter")
-        # dog = self.dogs.remove_first()
-        # self.all.remove(dog)
-        # return dog
+        if not self.dogs is None:
+            dog = self.dogs.data
+            self.dogs = self.dogs.next
+            self.number -= 1
+            return dog
+        else:
+            print("No dogs in shelter")
+            return None
+        
+    def dequeue_cat(self):
+        if not self.cats is None:
+            cat = self.cats.data
+            self.cats = self.cats.next
+            self.number -= 1
+            return cat
+        else:
+            print("No cats in shelter")
+            return None
+        
+    def __repr__(self):
+        dogs = []
+        cats = []
+        current = self.dogs
+        while current:
+            dogs.append(current.data.number)
+            current = current.next
+        current = self.cats
+        while current:
+            cats.append(current.data.number)
+            current = current.next
+        return f"AnimalShelter(dogs={dogs}, cats={cats}, total={self.number})"
+    
+
+
+if __name__ == "__main__":
+    shelter = AnimalShelter()
+    shelter.enqueue('dog')
+    shelter.enqueue('cat')
+    shelter.enqueue('dog')
+    shelter.enqueue('cat')
+    shelter.enqueue('dog')
+    print(shelter)
+    print("Dequeue any:", shelter.dequeue_any())
+    print(shelter)
+    print("Dequeue dog:", shelter.dequeue_dog())
+    print(shelter)
+    print("Dequeue cat:", shelter.dequeue_cat())
+    print(shelter)
+    print("Dequeue any:", shelter.dequeue_any())
+    print(shelter)
+    print("Dequeue any:", shelter.dequeue_any())
+    print(shelter)
+    print("Dequeue any:", shelter.dequeue_any())
+    print(shelter) 
