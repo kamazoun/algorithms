@@ -1,31 +1,29 @@
 #!/usr/bin/env bash
 set -e
 
-REPO_URL="https://github.com/alleyforge/contacthorse-alpha-app.git"
-APP_DIR="ContactHorse"
+REPO_URL="https://github.com/contacthorse/forever-app.git"
+APP_DIR="forever-app"
 
-
-#  Clone repo if not present
+# Clone if not present
 if [ ! -d "$APP_DIR" ]; then
-  git clone "$REPO_URL"
-  cd "$APP_DIR"
-else
-  cd "$APP_DIR"
+  echo "Cloning repository from $REPO_URL"
+  git clone "$REPO_URL" "$APP_DIR"
 fi
 
-#  Copy .env.example to .env if present and .env does not exist
+cd "$APP_DIR"
+
+# Copy .env if needed
 if [ ! -f ".env" ] && [ -f ".env.example" ]; then
+  echo "Creating .env from .env.example"
   cp .env.example .env
 fi
 
-#  Start the app
+# Start app
 if [ -f "docker-compose.yml" ]; then
+  echo "Starting app using Docker Compose..."
   docker compose up -d
-  echo "Waiting for containers to initialize..."
-  echo "Please allow a moment for the app to start."
+  echo "App is starting! Served at http://localhost:3000"
 else
   echo "docker-compose.yml not found!"
   exit 1
 fi
-
-echo "App is starting! Served at http://localhost:3000" 
