@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
+# ------------------------ CONFIG ------------------------
 REPO_URL="https://github.com/contacthorse/forever-app.git"
 APP_DIR="forever-app"
+# --------------------- END CONFIG -----------------------
 
+# ---------- UTILITIES ----------
 green()  { echo -e "\033[32m$1\033[0m"; }
 red()    { echo -e "\033[31m$1\033[0m"; }
 yellow() { echo -e "\033[33m$1\033[0m"; }
@@ -39,13 +42,13 @@ install_git() {
   local os_id="$1"
   case "$os_id" in
     amzn|amazon)
-      sudo yum install -y git
+      sudo dnf install -y git
       ;;
     ubuntu|debian)
       sudo apt update && sudo apt install -y git
       ;;
     *)
-      red "Unsupported OS for Git auto-install: $os_id"
+      red "Unsupported OS for Git install: $os_id"
       exit 1
       ;;
   esac
@@ -55,8 +58,8 @@ install_docker() {
   local os_id="$1"
   case "$os_id" in
     amzn|amazon)
-      sudo yum install -y docker
-      sudo service docker start
+      sudo dnf install -y docker
+      sudo systemctl enable --now docker
       ;;
     ubuntu|debian)
       curl -fsSL https://get.docker.com | sudo bash
@@ -71,19 +74,19 @@ install_docker() {
 }
 
 install_compose_v2() {
-  # Works for most Linux x86_64 systems
-  sudo mkdir -p /usr/local/lib/docker/cli-plugins
+  local plugin_dir="/usr/local/lib/docker/cli-plugins"
+  sudo mkdir -p "$plugin_dir"
   sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 \
-    -o /usr/local/lib/docker/cli-plugins/docker-compose
-  sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+    -o "$plugin_dir/docker-compose"
+  sudo chmod +x "$plugin_dir/docker-compose"
 }
 
-# --- Detect OS ---
+# ---------- BEGIN EXECUTION ----------
 OS_ID="$(detect_os)"
 
 # --- Git ---
 if ! command -v git >/dev/null 2>&1; then
-  red "❌ Git is not found."
+  red "❌ Git is not installed."
   if confirm "Do you want to install Git now?"; then
     install_git "$OS_ID"
     green "✅ Git installed."
@@ -133,7 +136,7 @@ fi
 
 cd "$APP_DIR"
 
-# --- Copy .env ---
+# --- Copy .env if missing ---
 if [ ! -f ".env" ] && [ -f ".env.example" ]; then
   green "⚙️ Creating .env from .env.example"
   cp .env.example .env
