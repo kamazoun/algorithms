@@ -30,7 +30,7 @@ confirm() {
 
 # --- 1. Check for Git ---
 if ! command -v git >/dev/null 2>&1; then
-  red "❌ Git is not installed."
+  red "❌ Git is not found."
   if confirm "Do you want to install Git now?"; then
     sudo apt update && sudo apt install -y git
     green "✅ Git installed."
